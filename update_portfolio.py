@@ -64,7 +64,7 @@ if __name__ == "__main__":
     stock_df = fetch_stock_data(stocks)
 
     # Add your shares and calculate portfolio value
-    shares = {"AAPL": 10, "GOOGL": 5, "MSFT": 8}  # Example shares
+    shares = {"AAPL": 10, "GOOGL": 5, "MSFT": 7}  # Example shares
     stock_df["Shares"] = stock_df["Stock"].map(shares)
     stock_df["Value"] = stock_df["Close"] * stock_df["Shares"]
 
