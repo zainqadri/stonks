@@ -73,4 +73,4 @@ if __name__ == "__main__":
     generate_html(stock_df, filename=html_file)
 
     # Commit and push to GitHub
-    push_to_github(repo_path, "Update stock portfolio data2")
+    push_to_github(repo_path, "Update stock portfolio data")
