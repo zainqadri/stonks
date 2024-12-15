@@ -23,11 +23,11 @@ def fetch_stock_data(stock_list):
             # Extract the latest data for this stock
             stock_data.append({
                 "Stock": stock,
-                "Close": data['Adj Close'].iloc[-1],  # Extract just the stock price
-                "7_Day_Avg": data['7_Day_Avg'].iloc[-1],  # Most recent 7-day average
-                "1_Month_Avg": data['1_Month_Avg'].iloc[-1],  # Most recent 1-month average
-                "3_Month_Avg": data['3_Month_Avg'].iloc[-1],  # Most recent 3-month average
-                "6_Month_Avg": data['6_Month_Avg'].iloc[-1]  # Most recent 9-month average
+                "Close": float(data['Adj Close'].iloc[-1]),  # Ensure plain numeric format
+                "7_Day_Avg": float(data['7_Day_Avg'].iloc[-1]),
+                "1_Month_Avg": float(data['1_Month_Avg'].iloc[-1]),
+                "3_Month_Avg": float(data['3_Month_Avg'].iloc[-1]),
+                "6_Month_Avg": float(data['6_Month_Avg'].iloc[-1])
             })
         except Exception as e:
             print(f"Error fetching data for {stock}: {e}")
@@ -58,10 +58,7 @@ def push_to_github(repo_path, commit_message):
 
 # Main function
 if __name__ == "__main__":
-    # Replace this with your local GitHub repo path
     repo_path = r"C:\\Users\\zainq\\stonks"
-
-    # Replace with the stock symbols you own
     stocks = ["AAPL", "GOOGL", "MSFT"]
 
     # Fetch stock data
@@ -71,6 +68,7 @@ if __name__ == "__main__":
     shares = {"AAPL": 10, "GOOGL": 5, "MSFT": 9}  # Example shares
     stock_df["Shares"] = stock_df["Stock"].map(shares)
     stock_df["Value"] = stock_df["Close"] * stock_df["Shares"]
+    stock_df["Value"] = stock_df["Value"].astype(float)  # Ensure plain numeric format
 
     # Generate HTML file in the repo directory
     html_file = os.path.join(repo_path, "index.html")
