@@ -64,7 +64,7 @@ if __name__ == "__main__":
     stock_df = fetch_stock_data(stocks)
 
     # Add your shares and calculate portfolio value
-    shares = {"AAPL": 10, "GOOGL": 5, "MSFT": 5}  # Example shares
+    shares = {"AAPL": 10, "GOOGL": 5, "MSFT": 9}  # Example shares
     stock_df["Shares"] = stock_df["Stock"].map(shares)
     stock_df["Value"] = stock_df["Close"] * stock_df["Shares"]
 
@@ -73,4 +73,4 @@ if __name__ == "__main__":
     generate_html(stock_df, filename=html_file)
 
     # Commit and push to GitHub
-    push_to_github(repo_path, "Update stock portfolio data")
+    push_to_github(repo_path, "Update stock portfolio data2")
