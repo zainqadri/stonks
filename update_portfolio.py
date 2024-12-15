@@ -12,20 +12,22 @@ def fetch_stock_data(stock_list):
     stock_data = []
     for stock in stock_list:
         try:
+            # Fetch data using yfinance
             data = yf.download(stock, start=start_date, end=today)
             data['Stock'] = stock
             data['7_Day_Avg'] = data['Adj Close'].rolling(window=7).mean()
             data['1_Month_Avg'] = data['Adj Close'].rolling(window=30).mean()
             data['3_Month_Avg'] = data['Adj Close'].rolling(window=90).mean()
             data['9_Month_Avg'] = data['Adj Close'].rolling(window=270).mean()
-            latest = data.iloc[-1]
+
+            # Extract the latest data for this stock
             stock_data.append({
                 "Stock": stock,
-                "Close": latest['Adj Close'],
-                "7_Day_Avg": latest['7_Day_Avg'],
-                "1_Month_Avg": latest['1_Month_Avg'],
-                "3_Month_Avg": latest['3_Month_Avg'],
-                "9_Month_Avg": latest['9_Month_Avg']
+                "Close": data['Adj Close'].iloc[-1],  # Extract just the stock price
+                "7_Day_Avg": data['7_Day_Avg'].iloc[-1],  # Most recent 7-day average
+                "1_Month_Avg": data['1_Month_Avg'].iloc[-1],  # Most recent 1-month average
+                "3_Month_Avg": data['3_Month_Avg'].iloc[-1],  # Most recent 3-month average
+                "9_Month_Avg": data['9_Month_Avg'].iloc[-1]  # Most recent 9-month average
             })
         except Exception as e:
             print(f"Error fetching data for {stock}: {e}")
