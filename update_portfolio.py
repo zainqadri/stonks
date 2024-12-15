@@ -33,81 +33,12 @@ def fetch_stock_data(stock_list):
 
 # Function to generate the HTML file
 def generate_html(data, filename="index.html"):
-    # Clean up the DataFrame and format the numbers for better presentation
-    data["Close"] = data["Close"].round(2)
-    data["7_Day_Avg"] = data["7_Day_Avg"].round(2)
-    data["1_Month_Avg"] = data["1_Month_Avg"].round(2)
-    data["3_Month_Avg"] = data["3_Month_Avg"].round(2)
-    data["9_Month_Avg"] = data["9_Month_Avg"].round(2)
-    data["Shares"] = data["Shares"].astype(int)  # Ensuring shares are integers
-    data["Value"] = data["Value"].round(2)  # Rounding value for better readability
-
-    # Create HTML content with the cleaned data
-    html_content = data.to_html(index=False, justify="center", border=1, classes="stock-table")
-
-    # Writing the HTML content to the file with some custom styling for clarity
+    html_content = data.to_html(index=False, justify="center", border=1)
     with open(filename, "w") as file:
-        file.write("""
-        <html>
-        <head>
-            <title>Stock Portfolio</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f9;
-                    margin: 0;
-                    padding: 20px;
-                }
-                h1 {
-                    text-align: center;
-                    font-size: 2em;
-                    color: #333;
-                }
-                table.stock-table {
-                    margin: 20px auto;
-                    border-collapse: collapse;
-                    width: 80%;
-                    max-width: 1000px;
-                }
-                table.stock-table th, table.stock-table td {
-                    padding: 12px 15px;
-                    text-align: center;
-                    border: 1px solid #ddd;
-                }
-                table.stock-table th {
-                    background-color: #007BFF;
-                    color: white;
-                    font-weight: bold;
-                }
-                table.stock-table tr:nth-child(even) {
-                    background-color: #f2f2f2;
-                }
-                table.stock-table tr:hover {
-                    background-color: #f1f1f1;
-                }
-                table.stock-table td {
-                    background-color: white;
-                    font-size: 1em;
-                    color: #333;
-                }
-                .footer {
-                    text-align: center;
-                    font-size: 0.9em;
-                    color: #888;
-                    margin-top: 20px;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Stock Portfolio</h1>
-            """ + html_content + """
-            <div class="footer">
-                <p>Generated on """ + datetime.datetime.today().strftime("%Y-%m-%d") + """</p>
-            </div>
-        </body>
-        </html>
-        """)
-
+        file.write("<html><head><title>Stock Portfolio</title></head><body>")
+        file.write("<h1>Stock Portfolio</h1>")
+        file.write(html_content)
+        file.write("</body></html>")
     print(f"HTML file '{filename}' created successfully.")
 
 # Function to push to GitHub
