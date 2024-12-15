@@ -18,7 +18,7 @@ def fetch_stock_data(stock_list):
             data['7_Day_Avg'] = data['Adj Close'].rolling(window=7).mean()
             data['1_Month_Avg'] = data['Adj Close'].rolling(window=30).mean()
             data['3_Month_Avg'] = data['Adj Close'].rolling(window=90).mean()
-            data['9_Month_Avg'] = data['Adj Close'].rolling(window=270).mean()
+            data['6_Month_Avg'] = data['Adj Close'].rolling(window=180).mean()
 
             # Extract the latest data for this stock
             stock_data.append({
@@ -27,7 +27,7 @@ def fetch_stock_data(stock_list):
                 "7_Day_Avg": data['7_Day_Avg'].iloc[-1],  # Most recent 7-day average
                 "1_Month_Avg": data['1_Month_Avg'].iloc[-1],  # Most recent 1-month average
                 "3_Month_Avg": data['3_Month_Avg'].iloc[-1],  # Most recent 3-month average
-                "9_Month_Avg": data['9_Month_Avg'].iloc[-1]  # Most recent 9-month average
+                "6_Month_Avg": data['6_Month_Avg'].iloc[-1]  # Most recent 9-month average
             })
         except Exception as e:
             print(f"Error fetching data for {stock}: {e}")
