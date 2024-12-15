@@ -1,4 +1,20 @@
-<html><head><title>Stock Portfolio</title></head><body><h1>Stock Portfolio</h1><table border="1" class="dataframe">
+
+        <html>
+        <head>
+            <title>Stock Portfolio</title>
+            <style>
+                body { font-family: Arial, sans-serif; }
+                h1 { text-align: center; }
+                table.stock-table { margin: 0 auto; border-collapse: collapse; }
+                table.stock-table th, table.stock-table td { padding: 8px 12px; text-align: center; }
+                table.stock-table th { background-color: #f2f2f2; }
+                table.stock-table tr:nth-child(even) { background-color: #f9f9f9; }
+                table.stock-table td { border: 1px solid #ddd; }
+            </style>
+        </head>
+        <body>
+            <h1>Stock Portfolio</h1>
+            <table border="1" class="dataframe stock-table">
   <thead>
     <tr style="text-align: center;">
       <th>Stock</th>
@@ -79,4 +95,7 @@ MSFT    4025.429901
 Name: 2024-12-13 00:00:00, dtype: object</td>
     </tr>
   </tbody>
-</table></body></html>
+</table>
+        </body>
+        </html>
+        

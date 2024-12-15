@@ -33,12 +33,41 @@ def fetch_stock_data(stock_list):
 
 # Function to generate the HTML file
 def generate_html(data, filename="index.html"):
-    html_content = data.to_html(index=False, justify="center", border=1)
+    # Clean up the DataFrame and format the numbers for better presentation
+    data["Close"] = data["Close"].round(2)
+    data["7_Day_Avg"] = data["7_Day_Avg"].round(2)
+    data["1_Month_Avg"] = data["1_Month_Avg"].round(2)
+    data["3_Month_Avg"] = data["3_Month_Avg"].round(2)
+    data["9_Month_Avg"] = data["9_Month_Avg"].round(2)
+    data["Shares"] = data["Shares"].astype(int)  # Ensuring shares are integers
+    data["Value"] = data["Value"].round(2)  # Rounding value for better readability
+
+    # Create HTML content with the cleaned data
+    html_content = data.to_html(index=False, justify="center", border=1, classes="stock-table")
+
+    # Writing the HTML content to the file with some custom styling for clarity
     with open(filename, "w") as file:
-        file.write("<html><head><title>Stock Portfolio</title></head><body>")
-        file.write("<h1>Stock Portfolio</h1>")
-        file.write(html_content)
-        file.write("</body></html>")
+        file.write("""
+        <html>
+        <head>
+            <title>Stock Portfolio</title>
+            <style>
+                body { font-family: Arial, sans-serif; }
+                h1 { text-align: center; }
+                table.stock-table { margin: 0 auto; border-collapse: collapse; }
+                table.stock-table th, table.stock-table td { padding: 8px 12px; text-align: center; }
+                table.stock-table th { background-color: #f2f2f2; }
+                table.stock-table tr:nth-child(even) { background-color: #f9f9f9; }
+                table.stock-table td { border: 1px solid #ddd; }
+            </style>
+        </head>
+        <body>
+            <h1>Stock Portfolio</h1>
+            """ + html_content + """
+        </body>
+        </html>
+        """)
+
     print(f"HTML file '{filename}' created successfully.")
 
 # Function to push to GitHub
